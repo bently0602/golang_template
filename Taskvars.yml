@@ -1,0 +1,7 @@
+# BINARY_NAME is the same as PACKAGE_NAME for go build
+BINARY_NAME: golang_template
+
+# each dep for go get on a new line
+# git, hg, whatever will need to be on path
+DEPS: |
+  github.com/golang/example/hello

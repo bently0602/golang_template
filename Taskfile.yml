@@ -1,0 +1,25 @@
+# github.com/go-task/task
+
+default:
+  cmds:
+    - cmd: go build -v -o ./bin/{{.BINARY_NAME}}{{exeExt}} {{.BINARY_NAME}}
+  env:
+    GOPATH: {sh: pwd}
+run:
+  cmds:
+    - cmd: ./bin/{{.BINARY_NAME}}{{exeExt}}
+      silent: true
+deps:
+  cmds:
+    - cmd: go get {{catLines .DEPS}}
+      silent: true
+  env:
+    GOPATH: {sh: pwd}
+clean:
+  cmds:
+    - cmd: rm -f ./bin/*
+fmt:
+  cmds:
+    - cmd: go fmt {{.BINARY_NAME}}
+  env:
+    GOPATH: {sh: pwd}
