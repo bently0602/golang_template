@@ -2,8 +2,13 @@
 
 default:
   cmds:
+    # clear static directory in src (or create the foloder if neccessary)
     - cmd: rm -rf ./bin/static
-    - cmd: cp -rf ./src/{{.PACKAGE_NAME}}/static ./bin/static    
+    - cmd: mkdir -p ./src/{{.PACKAGE_NAME}}/static
+    - cmd: cp -rf ./src/{{.PACKAGE_NAME}}/static ./bin/static 
+    # create conifg file in package if neccessary
+    - cmd: touch ./src/{{.PACKAGE_NAME}}/_{{.CONFIG_FILE}}
+    # build
     - cmd: go build -v -o ./bin/{{.BINARY_NAME}}{{exeExt}} {{.PACKAGE_NAME}}
   env:
     GOPATH: {sh: pwd}
@@ -36,7 +41,9 @@ all:
     - task: build
       vars: {PLATFORM: "linux", ARCH: "amd64", EXTENSION: ""}
     - task: build
-      vars: {PLATFORM: "openbsd", ARCH: "amd64", EXTENSION: ""} 
+      vars: {PLATFORM: "openbsd", ARCH: "amd64", EXTENSION: ""}
+    - task: build
+      vars: {PLATFORM: "freebsd", ARCH: "amd64", EXTENSION: ""} 
   env:
     GOPATH: {sh: pwd}
 deps:
