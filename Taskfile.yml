@@ -2,13 +2,43 @@
 
 default:
   cmds:
-    - cmd: go build -v -o ./bin/{{.BINARY_NAME}}{{exeExt}} {{.BINARY_NAME}}
+    - cmd: rm -rf ./bin/static
+    - cmd: cp -rf ./src/{{.PACKAGE_NAME}}/static ./bin/static    
+    - cmd: go build -v -o ./bin/{{.BINARY_NAME}}{{exeExt}} {{.PACKAGE_NAME}}
   env:
     GOPATH: {sh: pwd}
 run:
   cmds:
     - cmd: ./bin/{{.BINARY_NAME}}{{exeExt}}
       silent: true
+run:
+  cmds:
+    - cmd: cp -n ./src/{{.PACKAGE_NAME}}/_{{.CONFIG_FILE}} ./{{.CONFIG_FILE}}
+    - cmd: ./bin/{{.BINARY_NAME}}{{exeExt}} -config ./{{.CONFIG_FILE}}
+      silent: true
+build:
+  cmds:
+    - cmd: rm -rf ./releases/{{.PLATFORM}}_{{.ARCH}}
+    - cmd: mkdir -p ./releases/{{.PLATFORM}}_{{.ARCH}}
+    - cmd: cp -rf ./src/{{.PACKAGE_NAME}}/static ./releases/{{.PLATFORM}}_{{.ARCH}}/static
+    - cmd: cp -f ./src/{{.PACKAGE_NAME}}/_{{.CONFIG_FILE}} ./releases/{{.PLATFORM}}_{{.ARCH}}/{{.CONFIG_FILE}}
+    - cmd: go build -v -o ./releases/{{.PLATFORM}}_{{.ARCH}}/{{.BINARY_NAME}}{{if eq .EXTENSION ""}}{{else}}.{{.EXTENSION}}{{end}} {{.BINARY_NAME}}
+  env:
+    GOPATH: {sh: pwd}
+# arch and platform listing
+# https://gist.github.com/asukakenji/f15ba7e588ac42795f421b48b8aede63
+all:
+  cmds:
+    - task: build
+      vars: {PLATFORM: "darwin", ARCH: "amd64", EXTENSION: ""}
+    - task: build
+      vars: {PLATFORM: "windows", ARCH: "amd64", EXTENSION: "exe"}
+    - task: build
+      vars: {PLATFORM: "linux", ARCH: "amd64", EXTENSION: ""}
+    - task: build
+      vars: {PLATFORM: "openbsd", ARCH: "amd64", EXTENSION: ""} 
+  env:
+    GOPATH: {sh: pwd}
 deps:
   cmds:
     - cmd: go get {{catLines .DEPS}}
