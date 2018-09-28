@@ -2,38 +2,30 @@
 
 default:
   cmds:
-    # clear static directory in src (or create the foloder if neccessary)
+    - cmd: mkdir -p ./bin
+    - cmd: mkdir -p ./src/{{.BINARY_NAME}}/static
     - cmd: rm -rf ./bin/static
-    - cmd: mkdir -p ./src/{{.PACKAGE_NAME}}/static
-    - cmd: cp -rf ./src/{{.PACKAGE_NAME}}/static ./bin/static 
-    # create conifg file in package if neccessary
-    - cmd: touch ./src/{{.PACKAGE_NAME}}/_{{.CONFIG_FILE}}
-    # build
-    - cmd: go build -v -o ./bin/{{.BINARY_NAME}}{{exeExt}} {{.PACKAGE_NAME}}
+    - cmd: cp -rf ./src/{{.BINARY_NAME}}/static ./bin/static
+    - cmd: cp -f ./src/{{.BINARY_NAME}}/_config.json ./bin/config.json
+    - cmd: go build -v -o ./bin/{{.BINARY_NAME}}{{exeExt}} {{.BINARY_NAME}}
   env:
     GOPATH: {sh: pwd}
-run:
-  cmds:
-    - cmd: ./bin/{{.BINARY_NAME}}{{exeExt}}
-      silent: true
-run:
-  cmds:
-    - cmd: cp -n ./src/{{.PACKAGE_NAME}}/_{{.CONFIG_FILE}} ./{{.CONFIG_FILE}}
-    - cmd: ./bin/{{.BINARY_NAME}}{{exeExt}} -config ./{{.CONFIG_FILE}}
-      silent: true
 build:
   cmds:
     - cmd: rm -rf ./releases/{{.PLATFORM}}_{{.ARCH}}
     - cmd: mkdir -p ./releases/{{.PLATFORM}}_{{.ARCH}}
-    - cmd: cp -rf ./src/{{.PACKAGE_NAME}}/static ./releases/{{.PLATFORM}}_{{.ARCH}}/static
-    - cmd: cp -f ./src/{{.PACKAGE_NAME}}/_{{.CONFIG_FILE}} ./releases/{{.PLATFORM}}_{{.ARCH}}/{{.CONFIG_FILE}}
+    - cmd: cp -rf ./src/{{.BINARY_NAME}}/static ./releases/{{.PLATFORM}}_{{.ARCH}}/static
+    - cmd: cp -f ./src/{{.BINARY_NAME}}/_config.json ./releases/{{.PLATFORM}}_{{.ARCH}}/config.json
     - cmd: go build -v -o ./releases/{{.PLATFORM}}_{{.ARCH}}/{{.BINARY_NAME}}{{if eq .EXTENSION ""}}{{else}}.{{.EXTENSION}}{{end}} {{.BINARY_NAME}}
   env:
     GOPATH: {sh: pwd}
+    GOOS: "{{.PLATFORM}}"
+    GOARCH: "{{.ARCH}}"
 # arch and platform listing
 # https://gist.github.com/asukakenji/f15ba7e588ac42795f421b48b8aede63
 all:
   cmds:
+    - cmd: rm -rf ./releases
     - task: build
       vars: {PLATFORM: "darwin", ARCH: "amd64", EXTENSION: ""}
     - task: build
@@ -41,11 +33,14 @@ all:
     - task: build
       vars: {PLATFORM: "linux", ARCH: "amd64", EXTENSION: ""}
     - task: build
-      vars: {PLATFORM: "openbsd", ARCH: "amd64", EXTENSION: ""}
-    - task: build
-      vars: {PLATFORM: "freebsd", ARCH: "amd64", EXTENSION: ""} 
+      vars: {PLATFORM: "openbsd", ARCH: "amd64", EXTENSION: ""} 
   env:
     GOPATH: {sh: pwd}
+run:
+  cmds:
+    - cmd: cp -n ./src/{{.BINARY_NAME}}/_config.json ./config.json
+    - cmd: ./bin/{{.BINARY_NAME}}{{exeExt}} -config ./config.json
+      silent: true
 deps:
   cmds:
     - cmd: go get {{catLines .DEPS}}
@@ -54,7 +49,8 @@ deps:
     GOPATH: {sh: pwd}
 clean:
   cmds:
-    - cmd: rm -f ./bin/*
+    - cmd: rm -rf ./bin
+    - cmd: rm -rf ./releases
 fmt:
   cmds:
     - cmd: go fmt {{.BINARY_NAME}}
