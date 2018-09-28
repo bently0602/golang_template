@@ -1,15 +1,5 @@
 # the name of the resulting binary file without extension
 BINARY_NAME: golang_template
-# what package in source directory to build
-# example:
-#   github.com/mholt/caddy/caddy
-#     or
-#   golang_template
-# it is used like: ./src{{.PACKAGE_NAME}}
-# no preceding or succeeding /
-PACKAGE_NAME: golang_template
-# what is the name of the configuration file
-CONFIG_FILE: config.json
 
 # each dep for go get on a new line
 # git, hg, whatever will need to be on path
