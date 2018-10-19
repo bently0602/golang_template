@@ -19,8 +19,8 @@ build.sh {all, run, deps, clean, fmt}
   go fmt over the package
 6. build.sh all
   builds amd64 releases in releases folder for:
-  - os x
-  - windows
-  - linux
-  - openbsd
+  * os x
+  * windows
+  * linux
+  * openbsd
   modify Taskfile.yml to specify different release platforms
