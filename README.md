@@ -33,7 +33,7 @@ build.bat/build.sh {all, run, deps, clean, fmt}
 
 1. __build.sh__ (no params)
 
-   builds project for current machine
+   builds project for current machine, then immediately executes it if there are no errors in the build process
 
 2. __build.sh run__
 
