@@ -44,13 +44,14 @@ tasks:
 
   buildarmrel:
     cmds:
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}rm -rf ./releases/{{.PLATFORM}}_{{.ARCH}}'
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}mkdir -p ./releases/{{.PLATFORM}}_{{.ARCH}}'
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp -r ./static ./releases/{{.PLATFORM}}_{{.ARCH}}/static'
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./README.md ./releases/{{.PLATFORM}}_{{.ARCH}}/README.md'
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./LICENSE ./releases/{{.PLATFORM}}_{{.ARCH}}/LICENSE'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}rm -rf ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}mkdir -p ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp -r ./static ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/static'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./README.md ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/README.md'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./LICENSE ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/LICENSE'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./{{.CONFIG_NAME}} ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/{{.CONFIG_NAME}}'
       #- '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./{{.BINARY_NAME}} ./releases/{{.PLATFORM}}_{{.ARCH}}/{{.BINARY_NAME}}'
-      - go build -v -o ./releases/{{.PLATFORM}}_{{.ARCH}}/{{.BINARY_NAME}}{{if eq .EXTENSION ""}}{{else}}.{{.EXTENSION}}{{end}} {{.BINARY_NAME}}
+      - go build -v -o ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/{{.BINARY_NAME}}{{if eq .EXTENSION ""}}{{else}}.{{.EXTENSION}}{{end}} {{.BINARY_NAME}}
     env:
       GOPATH: {sh: pwd}
       GOOS: "{{.PLATFORM}}"
@@ -58,13 +59,14 @@ tasks:
       GOARM: "{{.ARM}}"
   buildrel:
     cmds:
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}rm -rf ./releases/{{.PLATFORM}}_{{.ARCH}}'
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}mkdir -p ./releases/{{.PLATFORM}}_{{.ARCH}}'
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp -r ./static ./releases/{{.PLATFORM}}_{{.ARCH}}/static'
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./README.md ./releases/{{.PLATFORM}}_{{.ARCH}}/README.md'
-      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./LICENSE ./releases/{{.PLATFORM}}_{{.ARCH}}/LICENSE'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}rm -rf ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}mkdir -p ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp -r ./static ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/static'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./README.md ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/README.md'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./LICENSE ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/LICENSE'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./{{.CONFIG_NAME}} ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/{{.CONFIG_NAME}}'
       #- '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}cp ./{{.BINARY_NAME}} ./releases/{{.PLATFORM}}_{{.ARCH}}/{{.BINARY_NAME}}'
-      - go build -v -o ./releases/{{.PLATFORM}}_{{.ARCH}}/{{.BINARY_NAME}}{{if eq .EXTENSION ""}}{{else}}.{{.EXTENSION}}{{end}} {{.BINARY_NAME}}
+      - go build -v -o ./releases/{{.BINARY_NAME}}_{{.PLATFORM}}_{{.ARCH}}/{{.BINARY_NAME}}{{if eq .EXTENSION ""}}{{else}}.{{.EXTENSION}}{{end}} {{.BINARY_NAME}}
     env:
       GOPATH: {sh: pwd}
       GOOS: "{{.PLATFORM}}"
