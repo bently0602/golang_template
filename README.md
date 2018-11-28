@@ -31,35 +31,40 @@ Uses [go-task](https://github.com/go-task/task) for task configuration and [uuid
 
 build.bat/build.sh {all, run, deps, clean, fmt}
 
-1. build.sh (no params)
+1. __build.sh__ (no params)
 
    builds project for current machine
 
-2. build.sh run
+2. __build.sh run__
 
    runs latest built project (with path of the golang_template root)
 
-3. build.sh deps
+3. __build.sh deps__
 
    grabs all dependencies in Taskvars.yml
 
-4. build.sh clean
+4. __build.sh clean__
 
    removes bin and releases folder requiring a rebuild
 
-5. build.sh fmt
+5. __build.sh fmt__
 
    go fmt over the package
 
-6. build.sh all
+6. __build.sh all__
 
-   builds and package in releases folder
+   * builds and package in releases folder
+   
    amd64:
+   
     * os x
     * windows
     * linux
     * openbsd
     * plan 9
+   
    arm:
+   
     * linux
+    
    modify Taskfile.yml to specify different release platforms
