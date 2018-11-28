@@ -24,28 +24,35 @@ Uses [go-task](https://github.com/go-task/task) for task configuration and [uuid
 * /releases - Folder gets built and contains packaged releases for each platform built for.
 * /src - Source code folder. Should contain all deps and your package folder.
 * /utils - Contains built copys of go-task and uuid.
-* config.json
+* config.json - Template of a config file for your application. CONFIG_NAME in Taskvars.yml specifies the name build.sh looks for.
+* README.md - This file. Modify it to be what you want.
 
 ## Build.sh(.bat) Options
 
 build.bat/build.sh {all, run, deps, clean, fmt}
 
 1. build.sh (no params)
+
    builds project for current machine
 
 2. build.sh run
+
    runs latest built project (with path of the golang_template root)
 
 3. build.sh deps
+
    grabs all dependencies in Taskvars.yml
 
 4. build.sh clean
+
    removes bin and releases folder requiring a rebuild
 
 5. build.sh fmt
+
    go fmt over the package
 
 6. build.sh all
+
    builds and package in releases folder
    amd64:
     * os x
