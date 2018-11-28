@@ -53,9 +53,9 @@ build.bat/build.sh {all, run, deps, clean, fmt}
 
 6. __build.sh all__
 
-   * builds and package in releases folder
+   builds and packages in releases folder. copies over in each release folder: static folder, config.json (or whatever CONFIG_NAME is), and README.md.
    
-   amd64:
+   *amd64:*
    
     * os x
     * windows
@@ -63,8 +63,8 @@ build.bat/build.sh {all, run, deps, clean, fmt}
     * openbsd
     * plan 9
    
-   arm:
+   *arm:*
    
     * linux
     
-   modify Taskfile.yml to specify different release platforms
+   *Modify Taskfile.yml to specify different release platforms.*
