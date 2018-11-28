@@ -20,7 +20,7 @@ Uses [go-task](https://github.com/go-task/task) for task configuration and [uuid
 ## Structure
 
 * /bin - Contains current dev build by running just "build.sh". "build.sh run" runs this. __build.sh creates this.__
-* /static - Folder is copied over into releases when built out. Meant to hold static www files or files need by the application. __build.sh__ creates this if you do not.__
+* /static - Folder is copied over into releases when built out. Meant to hold static www files or files need by the application. __build.sh creates this if you do not.__
 * /releases - Folder gets built and contains packaged releases for each platform built for. __build.sh creates this.__
 * /src - Source code folder. Should contain all deps and your package folder.
 * /utils - Contains built copys of go-task and uuid.
