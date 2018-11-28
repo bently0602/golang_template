@@ -1,5 +1,6 @@
 # the name of the resulting binary file without extension
 BINARY_NAME: golang_template
+CONFIG_NAME: config.json
 
 # each dep for go get on a new line
 # git, hg, whatever will need to be on path
