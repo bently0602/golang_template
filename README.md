@@ -13,9 +13,9 @@ Uses [go-task](https://github.com/go-task/task) for task configuration and [uuid
 - Change Taskvars.yml / DEPS: to add any urls of dependancies you want (By GO GET).
 - Change LICENSE to represent your license.
 - Change README.md as your readme markdown file.
-- Run: "build.sh(or .bat) deps"
-- Run: "build.sh"
-- Run: "build.sh run"
+- Run: *build.sh(or .bat) deps*
+- Run: *build.sh*
+- Run: *build.sh run*
 
 ## Structure
 
