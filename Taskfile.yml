@@ -6,7 +6,7 @@ tasks:
       - ./src/*
     cmds:
       - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}mkdir -p ./static'
-      - cmd: '{{if eq OS "windows"}}C:\\Windows\\System32\\taskkill.exe /f /t /im{{else}}kill -9 {{end}} {{.BINARY_NAME}}{{exeExt}}'
+      - cmd: '{{if eq OS "windows"}}C:\\Windows\\System32\\taskkill.exe /f /t /im{{else}}killall{{end}} {{.BINARY_NAME}}{{exeExt}}'
         ignore_error: true
       - task: build
       - task: run
