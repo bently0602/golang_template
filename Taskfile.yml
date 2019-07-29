@@ -6,7 +6,7 @@ tasks:
       - ./src/*
     cmds:
       - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}mkdir -p ./static'
-      - cmd: '{{if eq OS "windows"}}C:\\Windows\\System32\\taskkill.exe /f /t /im{{else}}killall{{end}} {{.BINARY_NAME}}{{exeExt}}'
+      - cmd: '{{if eq OS "windows"}}C:\\Windows\\System32\\taskkill.exe /f /t /im{{else}}killall{{end}} {{.SHORT_BINARY_NAME}}{{exeExt}}'
         ignore_error: true
       - task: build
       - task: run
@@ -17,6 +17,7 @@ tasks:
     cmds:                                                                                                                                                        
       - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}mkdir -p ./bin'
       - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}mkdir -p ./static'
+      - go generate -v ./src/{{.SHORT_BINARY_NAME}}
       - go build -v -o ./bin/{{.BINARY_NAME}}{{exeExt}} {{.BINARY_NAME}}
     env:
       GOPATH: 
@@ -24,7 +25,7 @@ tasks:
   run:
     cmds:
       - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}mkdir -p ./static'
-      - ./bin/{{.BINARY_NAME}}{{exeExt}}
+      - '{{if eq OS "windows"}}"{{end}}./bin/{{.BINARY_NAME}}{{if eq OS "windows"}}"{{end}}'
     vars:
       CUR: {sh: pwd}
   deps:
@@ -88,6 +89,6 @@ tasks:
       - task: buildrel
         vars: {PLATFORM: "plan9", ARCH: "amd64", EXTENSION: ""}
       - task: buildrel
-        vars: {PLATFORM: "openbsd", ARCH: "amd64", EXTENSION: ""} 
+        vars: {PLATFORM: "freebsd", ARCH: "amd64", EXTENSION: ""} 
     env:
       GOPATH: {sh: pwd}
