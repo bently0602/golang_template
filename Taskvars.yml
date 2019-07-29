@@ -1,8 +1,12 @@
 # the name of the resulting binary file without extension
+# BINARY_NAME is full path if modules
 BINARY_NAME: golang_template
+# SHORT_BINARY_NAME is just name of executable without extension if needed
+SHORT_BINARY_NAME: golang_template
 CONFIG_NAME: config.json
 
 # each dep for go get on a new line
 # git, hg, whatever will need to be on path
+# note that for modules once pulled in via go get each line item may need to be commented out
 DEPS: |
   github.com/golang/example/hello
