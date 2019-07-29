@@ -68,3 +68,12 @@ build.bat/build.sh {all, run, deps, clean, fmt}
     * linux
     
    *Modify Taskfile.yml to specify different release platforms.*
+
+## Issues
+
+Windows problems delete golang deps from src folder:
+
+`
+del /f /s /q golang.org 1>nul
+rmdir /s /q golang.org
+`

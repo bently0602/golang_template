@@ -37,6 +37,7 @@ tasks:
     cmds:
       - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}rm -rf ./bin'
       - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}rm -rf ./releases'
+      - '{{if eq OS "windows"}}.\\utils\\uutils.exe {{end}}rm -rf ./pkg'
   fmt:
     cmds:
       - go fmt {{.BINARY_NAME}}
@@ -87,7 +88,7 @@ tasks:
       - task: buildarmrel
         vars: {PLATFORM: "linux", ARCH: "arm", ARM: "5", EXTENSION: ""}
       - task: buildrel
-        vars: {PLATFORM: "plan9", ARCH: "amd64", EXTENSION: ""}
+        vars: {PLATFORM: "openbsd", ARCH: "amd64", EXTENSION: ""}
       - task: buildrel
         vars: {PLATFORM: "freebsd", ARCH: "amd64", EXTENSION: ""} 
     env:
